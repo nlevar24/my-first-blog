@@ -1,33 +1,20 @@
+
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Nick's blog</title>
-    </head>
-    <body>
-        <header>
-            <h1><a href="/">Welcome to Nick's Blog</a></h1>
-        </header>
 
-        <article>
-            <time>published: 14.06.2014, 12:14</time>
-            <h2><a href="">My first post</a></h2>
-            <p>I learned about about Django and some about Python. I then learned how to deploy my work to the internet so others could see my work.</p>
-        </article>
+        {% extends 'blog/base.html' %}
 
-        <article>
-            <time>published: 14.06.2014, 12:14</time>
-            <h2><a href="">My second post</a></h2>
-            <p>I learned about URLS and HTML and how to make a webpage more then just a blank page. Aswell as how to test things localy before deyploying them to make sure it works and looks the way I wanted it to.</p>
-        </article>
+        {% block content %}
+            {% for post in posts %}
+                <article class="post">
+                    <time class="date">
+                        {{ post.published_date }}
+                    </time>
+                    <h2><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h2>
+                    <p>{{ post.text|linebreaksbr }}</p>
+                </article>
+            {% endfor %}
+        {% endblock %}
 
-        <article> 
-          {% for post in posts %}
-             <article>
-                <time>published: {{ post.published_date }}</time>
-                <h2><a href="">{{ post.title }}</a></h2>
-                <p>{{ post.text|linebreaksbr }}</p>
-            </article>
-          {% endfor %}
-        </article>
-    </body>
+        
 </html>
